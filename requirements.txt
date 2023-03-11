@@ -10,4 +10,3 @@ scikit-learn
 joblib
 gunicorn
 uvicorn
-noise_reduction
