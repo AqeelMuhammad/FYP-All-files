@@ -10,5 +10,6 @@ scikit-learn
 joblib
 gunicorn
 uvicorn
-git+https://github.com/AqeelMuhammad/FYP-All-files.git#subdirectory=preprocessing_tool/noise_reduction
-git+https://github.com/AqeelMuhammad/FYP-All-files.git#subdirectory=preprocessing_tool/peak_detection
+git+https://github.com/AqeelMuhammad/FYP-All-files.git#subdirectory=preprocessing_tool
+noise_reduction
+peak_detection
