@@ -9,7 +9,7 @@ from preprocessing_tool.peak_detection import *
 
 app = Flask(__name__)
 
-@app.route("/", methods = ['GET'])
+@app.route("", methods = ['GET'])
 def home_page():
     data_set = {'Page':'Home', 'Message':'Connected', 'Timestamp':time.time()}
     json_dump = json.dumps(data_set)
