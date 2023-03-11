@@ -1,15 +1,15 @@
 from flask import *
 import json, time
 from read_data import *
-from preprocessing_tool.feature_extraction import *
-from preprocessing_tool.noise_reduction import *
-from preprocessing_tool.peak_detection import *
+from feature_extraction import *
+from noise_reduction import *
+from peak_detection import *
 # from sklearn.linear_model import LinearRegression
 # from sklearn.preprocessing import MinMaxScaler
 
 app = Flask(__name__)
 
-@app.route("", methods = ['GET'])
+@app.route("/", methods = ['GET'])
 def home_page():
     data_set = {'Page':'Home', 'Message':'Connected', 'Timestamp':time.time()}
     json_dump = json.dumps(data_set)

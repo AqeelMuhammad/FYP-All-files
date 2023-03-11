@@ -8,9 +8,9 @@ import joblib
 from scipy import stats as st
 
 from scipy.interpolate import UnivariateSpline
-from preprocessing_tool.noise_reduction import *
-from preprocessing_tool.feature_extraction import *
-from preprocessing_tool.peak_detection import *
+from noise_reduction import *
+from feature_extraction import *
+from peak_detection import *
 
 fs_dict_BVP = 60  # frequency
 cycle = 15
