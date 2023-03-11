@@ -1,1 +1,1 @@
-worker: python PPG/main.py
+worker: python main.py
