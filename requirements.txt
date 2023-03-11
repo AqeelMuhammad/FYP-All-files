@@ -10,3 +10,4 @@ scikit-learn
 joblib
 gunicorn
 uvicorn
+git+https://github.com/AqeelMuhammad/FYP-All-files.git#subdirectory=preprocessing_tool
