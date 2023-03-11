@@ -2,8 +2,8 @@
 # !pip install nolds
 
 # +
-#import sys
-#sys.path.append("/preprocessing_tool")
+import sys
+sys.path.append("https://github.com/AqeelMuhammad/FYP-All-files/preprocessing_tool")
 
 from noise_reduction import *
 from peak_detection import *
