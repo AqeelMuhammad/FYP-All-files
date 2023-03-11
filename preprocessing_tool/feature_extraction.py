@@ -3,7 +3,7 @@
 
 # +
 import sys
-sys.path.append("https://github.com/AqeelMuhammad/FYP-All-files/tree/main/preprocessing_tool")
+sys.path.append("D:\Final Year Project - FYP\FYP-All-files\preprocessing_tool")
 
 from noise_reduction import *
 from peak_detection import *

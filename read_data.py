@@ -17,13 +17,15 @@ cycle = 15
 file_path = "trained_binary_model/pt1.csv"
 temp_ths = [1.0, 2.0, 1.8, 1.5]  # std_, kurt, skews
 
-models = ['AB_model', 'DT_model', 'GB_model', 'KN_model', 'LDA_model', 'RF_model', 'SVM_model']
+models = ['AB_model', 'DT_model', 'GB_model',
+          'KN_model', 'LDA_model', 'RF_model', 'SVM_model']
 
-feats = ['HR_mean','HR_std','meanNN','SDNN','medianNN','meanSD','SDSD','RMSSD','pNN20','pNN50','TINN','LF','HF','ULF','VLF','LFHF',
-         'total_power','lfp','hfp','SD1','SD2','pA','pQ','ApEn','shanEn','D2']
+feats = ['HR_mean', 'HR_std', 'meanNN', 'SDNN', 'medianNN', 'meanSD', 'SDSD', 'RMSSD', 'pNN20', 'pNN50', 'TINN', 'LF', 'HF', 'ULF', 'VLF', 'LFHF',
+         'total_power', 'lfp', 'hfp', 'SD1', 'SD2', 'pA', 'pQ', 'ApEn', 'shanEn', 'D2']
+
 
 def ML_output(dataframe, feats, models):
-    results = [];
+    results = []
 
     # mean_std = pd.read_csv(mean_std_path, index_col=0).values
     mean = [7.59829670e+01, 1.10479738e+01, 8.31784498e+02, 1.23090146e+02, 8.16199267e+02, 1.19642124e+02, 1.09777805e+02, 1.63360789e+02,
@@ -46,12 +48,13 @@ def ML_output(dataframe, feats, models):
     x[where_are_inf] = 0
     # print("x: ", x)
     for model in models:
-        saved_model = joblib.load(model +'.pkl')
+        saved_model = joblib.load(model + '.pkl')
         y_pred = saved_model.predict([x])[0]
-        print(model, ': ',y_pred)
+        print(model, ': ', y_pred)
         results.append(y_pred)
         result = st.mode(results).mode[0]
     return result
+
 
 def get_samples(data, label, ma_usage):
     global feat_names
@@ -59,7 +62,8 @@ def get_samples(data, label, ma_usage):
     ENSEMBLE = True
     samples = []
 
-    window_len = fs_dict_BVP * WINDOW_IN_SECONDS  # 64*60 , sliding window: 0.25 sec (60*0.25 = 15)
+    # 64*60 , sliding window: 0.25 sec (60*0.25 = 15)
+    window_len = fs_dict_BVP * WINDOW_IN_SECONDS
     sliding_window_len = int(fs_dict_BVP * WINDOW_IN_SECONDS * 0.25)
 
     winNum = 0
@@ -77,7 +81,7 @@ def get_samples(data, label, ma_usage):
 
         if wstats == []:
             i += 1
-            continue;
+            continue
         # Seperating sample and label
         x = pd.DataFrame(wstats, index=[i])
 
@@ -86,13 +90,15 @@ def get_samples(data, label, ma_usage):
 
     return pd.concat(samples)
 
-def is_stressed(raw_data,clear_siganl_begining):
+
+def is_stressed(raw_data, clear_siganl_begining):
     raw_data = raw_data
     fs_dict_BVP = 60  # frequency
     cycle = 15
     temp_ths = [1.0, 2.0, 1.8, 1.5]  # std_, kurt, skews
 
-    models = ['AB_model', 'DT_model', 'GB_model', 'KN_model', 'LDA_model', 'RF_model', 'SVM_model']
+    models = ['AB_model', 'DT_model',  'KN_model',
+              'LDA_model', 'RF_model', 'SVM_model']
 
     feats = ['HR_mean', 'HR_std', 'meanNN', 'SDNN', 'medianNN', 'meanSD', 'SDSD', 'RMSSD', 'pNN20', 'pNN50', 'TINN',
              'LF', 'HF', 'ULF', 'VLF', 'LFHF',
@@ -116,9 +122,11 @@ def is_stressed(raw_data,clear_siganl_begining):
 
     signal_5_percent = int(len(bp_bvp) * 0.05)
     # print(signal_5_percent)
-    clean_signal = bp_bvp[clear_siganl_begining:clear_siganl_begining + signal_5_percent]
+    clean_signal = bp_bvp[clear_siganl_begining:
+                          clear_siganl_begining + signal_5_percent]
     ths = statistic_threshold(clean_signal, fs_dict_BVP, temp_ths)
-    len_before, len_after, time_signal_index = eliminate_noise_in_time(bp_bvp, fs_dict_BVP, ths, cycle)
+    len_before, len_after, time_signal_index = eliminate_noise_in_time(
+        bp_bvp, fs_dict_BVP, ths, cycle)
     # print('len_before ', len_before, ' len_after ', len_after)
     # print(time_signal_index)
     df = pd.DataFrame(bp_bvp, columns=['BVP'])
@@ -180,5 +188,3 @@ def is_stressed(raw_data,clear_siganl_begining):
 # features = features_of_windows.mean().transpose()
 # print("features: ", features)
 # print("Stressed") if ML_output(features, feats, models) else print("Not stressed")
-
-
