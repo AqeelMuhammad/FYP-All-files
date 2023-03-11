@@ -1,9 +1,9 @@
 from flask import *
 import json, time
-from trained_binary_model.read_data import *
-from trained_binary_model.preprocessing_tool.feature_extraction import *
-from trained_binary_model.preprocessing_tool.noise_reduction import *
-from trained_binary_model.preprocessing_tool.peak_detection import *
+from read_data import *
+from preprocessing_tool.feature_extraction import *
+from preprocessing_tool.noise_reduction import *
+from preprocessing_tool.peak_detection import *
 # from sklearn.linear_model import LinearRegression
 # from sklearn.preprocessing import MinMaxScaler
 

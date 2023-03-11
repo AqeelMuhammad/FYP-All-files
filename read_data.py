@@ -8,13 +8,13 @@ import joblib
 from scipy import stats as st
 
 from scipy.interpolate import UnivariateSpline
-from trained_binary_model.preprocessing_tool.noise_reduction import *
-from trained_binary_model.preprocessing_tool.feature_extraction import *
-from trained_binary_model.preprocessing_tool.peak_detection import *
+from preprocessing_tool.noise_reduction import *
+from preprocessing_tool.feature_extraction import *
+from preprocessing_tool.peak_detection import *
 
 fs_dict_BVP = 60  # frequency
 cycle = 15
-file_path = "pt1.csv"
+file_path = "trained_binary_model/pt1.csv"
 temp_ths = [1.0, 2.0, 1.8, 1.5]  # std_, kurt, skews
 
 models = ['AB_model', 'DT_model', 'GB_model', 'KN_model', 'LDA_model', 'RF_model', 'SVM_model']
