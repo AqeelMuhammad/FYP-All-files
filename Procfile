@@ -1,2 +1,2 @@
-web: gunicorn stress-detect:worker.1
+web: gunicorn main:main
 worker: python main.py
