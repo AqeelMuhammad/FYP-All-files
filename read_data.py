@@ -87,7 +87,8 @@ def get_samples(data, label, ma_usage):
 
         samples.append(x)
         i += 1
-
+    if samples == []:
+        return pd.DataFrame()
     return pd.concat(samples)
 
 
@@ -138,6 +139,8 @@ def is_stressed(raw_data, clear_siganl_begining):
     # plt.show()
 
     features_of_windows = get_samples(df, 0, True)
+    if features_of_windows.empty:
+        return [2, 0]
     features = features_of_windows.mean().transpose()
     print("features: ", features)
     res = ML_output(features, feats, models)
