@@ -22,8 +22,9 @@ def check_stressed():
     data = json.loads(request.data.decode())
     ppg = data['ppg']
     clr = data['clr']
+    dev = data['device']
     # print(ppg)
-    result = is_stressed(ppg, clr)
+    result = is_stressed(ppg, clr, dev)
     # print(result)
     data_set = {'User': f'{user_query}', 'stressed':int(result[0]),'HR mean':result[1], 'Timestamp':time.time()}
     json_dump = json.dumps(data_set)

@@ -58,7 +58,7 @@ def ML_output(dataframe, feats, models):
 
 def get_samples(data, label, ma_usage):
     global feat_names
-    WINDOW_IN_SECONDS = 20
+    WINDOW_IN_SECONDS = 40
     ENSEMBLE = True
     samples = []
 
@@ -75,8 +75,8 @@ def get_samples(data, label, ma_usage):
         # Include all windows corresponding to one window
         w = data[sliding_window_len * i: (sliding_window_len * i) + window_len]
         # Calculate stats for window
-        wstats = get_window_stats_27_features(ppg_seg=w["BVP"].tolist(), window_length=window_len, label=label,
-                                              ensemble=ENSEMBLE, ma_usage=True)
+        wstats = get_window_stats_27_features(ppg_seg=w["BVP"].tolist(), window_length_sec=WINDOW_IN_SECONDS, label=label,
+                                              ensemble=ENSEMBLE, ma_usage=True, fs = fs_dict_BVP)
         winNum += 1
 
         if wstats == []:
@@ -91,10 +91,48 @@ def get_samples(data, label, ma_usage):
         return pd.DataFrame()
     return pd.concat(samples)
 
+def convert_string_to_array(my_string):
+    my_list = list(map(float, my_string.strip('[]').split(',')))
+    my_array = np.array(my_list)
+    return my_array
 
-def is_stressed(raw_data, clear_siganl_begining):
-    raw_data = raw_data
-    fs_dict_BVP = 60  # frequency
+def create_data(data, device, fs_dict_BVP = 64):
+    if device == 1:
+        data = convert_string_to_array(data)
+        length = len(data)
+        # Define the original sampling rate
+        original_sampling_rate = int(length / 90)
+
+        # Define the new sampling rate
+        new_sampling_rate = fs_dict_BVP
+
+        # Define the cutoff frequency of the low-pass filter
+        cutoff_frequency =9
+
+        # Apply a low-pass filter to the original signal
+        b, a = signal.butter(4, cutoff_frequency / (0.5 * new_sampling_rate), 'low')
+        filtered_signal = signal.filtfilt(b, a, data)
+
+        # Calculate the resampling factor
+        resampling_factor = new_sampling_rate / original_sampling_rate
+
+        # Calculate the new length of the signal
+        new_length = int(len(data) * resampling_factor)
+
+        # Resample the filtered signal
+        df_BVP = signal.resample(filtered_signal, new_length)
+
+        return df_BVP
+
+    else:
+        return data
+
+
+def is_stressed(raw_data, clear_siganl_begining, device = 1):
+    fs_dict_BVP = 64  # frequency
+
+    raw_data = create_data(raw_data, device, fs_dict_BVP)
+
     cycle = 15
     temp_ths = [1.0, 2.0, 1.8, 1.5]  # std_, kurt, skews
 
