@@ -297,9 +297,10 @@ def calc_nonli_hrv(RR_list,label):
     return features
 
 
-def get_window_stats_27_features(ppg_seg, window_length, label, ensemble, ma_usage):  
+def get_window_stats_27_features(ppg_seg, window_length_sec, label, ensemble, ma_usage, fs =64):
     
-    fs = 64  
+    window_length = window_length_sec * fs
+    peak_th = 30 * window_length_sec / 60
     
     if ma_usage:
         # print(ppg_seg)
@@ -320,7 +321,7 @@ def get_window_stats_27_features(ppg_seg, window_length, label, ensemble, ma_usa
         peak = ensemble_peak(ppg_seg, fs, ensemble_ths)
         #print("after ensemble peak length: ", len(peak))
         # print("len(peak)" ,len(peak))
-        if(len(peak) < 40): #before 100
+        if(len(peak) < peak_th): #before 100
             print("skip")
             return []
 
