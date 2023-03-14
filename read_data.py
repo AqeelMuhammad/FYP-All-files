@@ -108,6 +108,7 @@ def create_data(data, device, fs_dict_BVP = 64):
 
         # Define the cutoff frequency of the low-pass filter
         cutoff_frequency = 11
+        
 
         # Apply a low-pass filter to the original signal
         b, a = signal.butter(4, cutoff_frequency / (0.5 * new_sampling_rate), 'low')
