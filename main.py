@@ -4,10 +4,10 @@ import numpy as np
 from sklearn.metrics import accuracy_score
 
 # Importing necessary functions for feature extraction
-from pyEDA.pyEDA.openShimmerFile import *
-from pyEDA.pyEDA.preprocessing import *
-from pyEDA.pyEDA.filtering import *
-from pyEDA.pyEDA.pyEDA import *
+from openShimmerFile import *
+from preprocessing import *
+from filtering import *
+from pyEDA import *
 
 def process_statistical(gsr_signal, use_scipy=True, sample_rate=128, new_sample_rate=40, segment_width=600, segment_overlap=0):
 	gsrdata = np.array(gsr_signal)
