@@ -11,4 +11,3 @@ joblib
 gunicorn
 uvicorn
 cvxopt
-process_statistical
