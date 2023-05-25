@@ -6,13 +6,13 @@ import matplotlib.pyplot as plt
 from scipy import stats
 
 # Importing necessary functions
-from pyEDA.pyEDA.calculate_onSetOffSet import *
-from pyEDA.pyEDA.calculate_thepeaks import *
-from pyEDA.pyEDA.calculateFeatures import *
-from pyEDA.pyEDA.cvxEDA import *
-from pyEDA.pyEDA.filtering import *
-from pyEDA.pyEDA.preprocessing import *
-from pyEDA.pyEDA.windowing import *
+from calculate_onSetOffSet import *
+from calculate_thepeaks import *
+from calculateFeatures import *
+from cvxEDA import *
+from filtering import *
+from preprocessing import *
+from windowing import *
 
 '''
 

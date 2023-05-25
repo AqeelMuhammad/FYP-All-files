@@ -11,7 +11,8 @@ from scipy.interpolate import UnivariateSpline
 from noise_reduction import *
 from feature_extraction import *
 from peak_detection import *
-from pyEDA.main import * 
+from main import *
+
 
 fs_dict_BVP = 60  # frequency
 cycle = 15
