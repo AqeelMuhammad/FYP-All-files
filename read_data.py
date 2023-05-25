@@ -1,4 +1,5 @@
 import os
+import sys
 import pickle
 import math
 import numpy as np
@@ -11,7 +12,12 @@ from scipy.interpolate import UnivariateSpline
 from noise_reduction import *
 from feature_extraction import *
 from peak_detection import *
-from pyEDA.main import *
+
+
+sys.path.append('/pyEDA')
+
+import pyEDA.main 
+
 
 fs_dict_BVP = 60  # frequency
 cycle = 15
